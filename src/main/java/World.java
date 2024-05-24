@@ -5,12 +5,14 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -43,7 +45,9 @@ import javax.swing.JLabel;
  *
  *
  * @author Luther Tychonievich. Released to the public domain.
+ *
  */
+
 public class World extends JFrame {
     /// version number based on date of creation
     private static final long serialVersionUID = 20130902L;
@@ -56,7 +60,120 @@ public class World extends JFrame {
     public final int centerX;
     public final int centerY;
 
+public class World {
+    private World world;
+    Scanner scanner;
 
+    public World () {
+        world = new World ();
+        scanner = new Scanner(System.in);
+
+    }
+     public void run() {
+         int choice;
+             displayHomeScreen();
+             choice = scanner.nextInt();
+             switch (choice) {
+                 case 1:
+                     addShape();
+                     break;
+                 case 2:
+                     saveImage();
+                     break;
+                 case 0:
+                     System.out.println("Exiting...");
+                     break;
+                 default:
+                     System.out.println("Invalid choice.");
+             }
+         
+     }
+
+    private void saveImage() {
+
+    }
+
+
+    private void displayHomeScreen() {
+        System.out.println("Home Screen");
+        System.out.println("1) AddShape");
+        System.out.println("2) Save Image");
+        System.out.println("0) Exit");
+        System.out.println("Enter your choice");
+    }
+    private void addShape (){
+        System.out.println("Which Shape(1. Square, 2. Circle, 3. Hexagon)");
+        int shapeType = scanner.nextInt();
+        switch (shapeType){
+            case 1:
+                addSquare();
+                break;
+            case 2:
+                addCircle();
+                break;
+            case 3: 
+                addHexagon();
+                break;
+            default:
+               System.out.println("Invaild shape choice");
+                
+                
+        }
+    }
+
+    private void addHexagon() {
+        System.out.println("Enter boarder width: ");
+        int boarderwidth = scanner.nextInt();
+        System.out.println("Type boarder color");
+        String boardercolor = scanner.next();
+        System.out.println("Enter location of shape");
+        int x = scanner.nextInt();
+        int y = scanner.nextInt();
+
+
+    }
+
+    private void addCircle() {
+        System.out.println("Enter the radius: ");
+        int radius = scanner.nextInt();
+        System.out.println("Enter boarder width: ");
+        int boarderwidth = scanner.nextInt();
+        System.out.println("Type boarder color: ");
+        String boardercolor = scanner.next();
+        System.out.println("Enter location of shape: ");
+        int x = scanner.nextInt();
+        int y = scanner.nextInt();
+
+    }
+
+    private void addSquare() {
+        System.out.println("Enter boarder width: ");
+        int boarderwidth = scanner.nextInt();
+        System.out.println("Type boarder color");
+        String boardercolor = scanner.next();
+        System.out.println("Enter location of shape");
+        int x = scanner.nextInt();
+        int y = scanner.nextInt();
+
+        int radius;
+        paintCircle(radius,boarderwidth,boardercolor, x, y);
+
+    }
+
+    private void paintCircle(int radius, int boarderwidth, String boardercolor, int x, int y) {
+        {
+            Graphics2D g = world.org;
+            g.setColor(Color.decode(boardercolor));
+            g.setStroke(new BasicStroke(boarderwidth));
+            g.draw(new Ellipse2D.Double(x - radius, y - radius, 2 * radius, 2 * radius) {
+            });world.repaint();
+        }
+    }
+
+    private Object repaint() {
+    }
+
+}
     /**
      * Creates a new World for Turtles to play in.
      */
